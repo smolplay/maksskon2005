@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ксюша, ты будешь моей Venom?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .buttons {
+            position: relative;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .yes {
+            background-color: green;
+            color: white;
+        }
+        .no {
+            background-color: red;
+            color: white;
+        }
+        .gif {
+            margin-top: 20px;
+            width: 300px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <img class="gif" id="initialGif" src="https://i.postimg.cc/NLhdPKTB/photo-2024-12-29-14-25-15.jpg" alt="Cute kittens">
+    <h1>Ксюша, ты будешь моей Venom?</h1>
+    <div class="buttons">
+        <button class="btn yes" onclick="confirmChoice()">Да</button>
+        <button class="btn no" onclick="increaseYes()">Нет</button>
+    </div>
+
+    <!-- Добавление аудио плеера -->
+    <audio id="audioPlayer" src="https://github.com/smolplay/maksskon2005/raw/main/music.mp3"></audio>
+    <button onclick="toggleMusic()">🔊 Включить музыку</button>
+    <p style="font-family: cursive; font-size: 18px;">FORTUNA812 - ParisLove</p>
+
+    <script>
+        let noClickCount = 0;
+        let yesButton = document.querySelector('.yes');
+        let noButton = document.querySelector('.no');
+        let initialGif = document.getElementById('initialGif');
+        let audio = document.getElementById("audioPlayer");
+        let isPlaying = false;
+        let messages = [
+            "Нет", "Ты уверена?", "Точно уверена?", "100%", "Подумай, пожалуйста", 
+            "Просто подумай", "Если скажешь нет, я расстроюсь", "Я сильно расстроюсь", 
+            "Я очень-очень расстроюсь", "Я не переживу"
+        ];
+
+        function increaseYes() {
+            initialGif.classList.add('hidden');
+            if (noClickCount < messages.length) {
+                noButton.innerText = messages[noClickCount];
+                noClickCount++;
+            }
+            let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+            yesButton.style.fontSize = (currentSize * 1.3) + "px";
+            yesButton.style.padding = (parseFloat(yesButton.style.padding) + 5) + "px";
+            if (currentSize * 1.3 >= window.innerWidth / 2) {
+                noButton.style.display = "none";
+            }
+        }
+
+        function confirmChoice() {
+            document.body.innerHTML = '<h1>Я знал, что ты согласишься!</h1>';
+            let newGif = document.createElement("img");
+            newGif.src = "https://i.postimg.cc/DybDdTs7/image.png";
+            newGif.style.width = "300px";
+            document.body.appendChild(newGif);
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
+                audio.play();
+                isPlaying = true;
+            }
+        }
+    </script>
+</body>
+</html>

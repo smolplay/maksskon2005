@@ -44,6 +44,9 @@
         .hidden {
             display: none;
         }
+        #volumeControl {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +62,10 @@
     <button onclick="toggleMusic()">🔊 Включить музыку</button>
     <p style="font-family: cursive; font-size: 18px;">FORTUNA812 - ParisLove</p>
 
+    <!-- Регулятор громкости -->
+    <input id="volumeControl" type="range" min="0" max="1" step="0.01" value="0.5" onchange="changeVolume()" />
+    <label for="volumeControl">Громкость</label>
+
     <script>
         let noClickCount = 0;
         let yesButton = document.querySelector('.yes');
@@ -71,6 +78,9 @@
             "Просто подумай", "Если скажешь нет, я расстроюсь", "Я сильно расстроюсь", 
             "Я очень-очень расстроюсь", "Я не переживу"
         ];
+
+        // Устанавливаем начальную громкость на 50% (x2 тише)
+        audio.volume = 0.5;
 
         function increaseYes() {
             initialGif.classList.add('hidden');
@@ -102,6 +112,11 @@
                 audio.play();
                 isPlaying = true;
             }
+        }
+
+        function changeVolume() {
+            const volumeControl = document.getElementById("volumeControl");
+            audio.volume = volumeControl.value; // Изменяем громкость аудио
         }
     </script>
 </body>

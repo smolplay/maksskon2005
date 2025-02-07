@@ -44,31 +44,6 @@
         .hidden {
             display: none;
         }
-        .music-container {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .music-title {
-            font-size: 18px;
-            font-weight: bold;
-            font-family: "Courier New", Courier, monospace;
-            margin-bottom: 10px;
-        }
-        .music-btn {
-            padding: 8px 16px;
-            font-size: 16px;
-            background-color: black;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        .music-btn:hover {
-            background-color: gray;
-        }
     </style>
 </head>
 <body>
@@ -79,31 +54,22 @@
         <button class="btn no" onclick="increaseYes()">Нет</button>
     </div>
 
-    <!-- Музыка с кнопкой управления -->
-    <div class="music-container">
-        <div class="music-title">🎵 FORTUNA812 - ParisLove 🎵</div>
-        <button class="music-btn" onclick="toggleMusic()">🔊 Включить музыку</button>
-    </div>
-
-    <audio id="backgroundMusic" loop>
-        <source src="https://drive.google.com/uc?export=download&id=1Kg8fsUnFekbL7cZ3lwYqH7sI3Eumzjmc" type="audio/mp3">
-        Ваш браузер не поддерживает элемент audio.
-    </audio>
+    <!-- Добавление аудио плеера -->
+    <audio id="audioPlayer" src="https://raw.githubusercontent.com/ТВОЙ-ЛОГИН/ksusha-venom/main/music.mp3"></audio>
+    <button onclick="toggleMusic()">🔊 Включить музыку</button>
+    <p style="font-family: cursive; font-size: 18px;">FORTUNA812 - ParisLove</p>
 
     <script>
         let noClickCount = 0;
         let yesButton = document.querySelector('.yes');
         let noButton = document.querySelector('.no');
         let initialGif = document.getElementById('initialGif');
-        let music = document.getElementById('backgroundMusic');
-        let musicButton = document.querySelector('.music-btn');
-
+        let audio = document.getElementById("audioPlayer");
+        let isPlaying = false;
         let messages = [
-            "Нет", "Ты уверена?", "Точно уверена?", "100%?", "Ты не передумаешь?", 
-            "Ты серьезно?", "Ну ладно, не отступай", "Ты же не хочешь меня расстроить", 
-            "Ты готова принять последствия?", "Надеюсь, ты подумала хорошо", 
-            "Я так не могу без тебя", "Это же все ради нас", "Ты будешь жалеть, если откажешься", 
-            "Я все равно тебя люблю", "Ты не сможешь жить без меня"
+            "Нет", "Ты уверена?", "Точно уверена?", "100%", "Подумай, пожалуйста", 
+            "Просто подумай", "Если скажешь нет, я расстроюсь", "Я сильно расстроюсь", 
+            "Я очень-очень расстроюсь", "Я не переживу"
         ];
 
         function increaseYes() {
@@ -129,12 +95,12 @@
         }
 
         function toggleMusic() {
-            if (music.paused) {
-                music.play();
-                musicButton.innerText = "🔇 Выключить музыку";
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
             } else {
-                music.pause();
-                musicButton.innerText = "🔊 Включить музыку";
+                audio.play();
+                isPlaying = true;
             }
         }
     </script>
